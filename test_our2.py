@@ -65,7 +65,8 @@ if __name__ == "__main__":
                 image = np.expand_dims(image, 0)
                 mask = np.expand_dims(mask, 0)
                 input_image = np.concatenate([image, mask], axis=2)
-                input_image = tf.constant(input_image, dtype=tf.float32)
+                input_image = input_image.astype(np.float32)
+                # input_image = tf.constant(input_image, dtype=tf.float32)
 
                 sess.run(assign_ops)
                 print('Model loaded.')
