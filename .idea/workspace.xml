@@ -21,6 +21,11 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\project\generative_inpainting" />
+    </key>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -31,11 +36,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590509133950</updated>
-      <workItem from="1590509141270" duration="2665000" />
+      <workItem from="1590509141270" duration="4586000" />
+      <workItem from="1590545917069" duration="2127000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="520" y="241" key="search.everywhere.popup" timestamp="1590542681995">
+      <screen x="0" y="0" width="1714" height="1103" />
+    </state>
+    <state x="520" y="241" key="search.everywhere.popup/0.0.1714.1103/3000.0.1920.1040@0.0.1714.1103" timestamp="1590542681995" />
   </component>
 </project>
