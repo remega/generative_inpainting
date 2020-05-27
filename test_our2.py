@@ -36,7 +36,7 @@ if __name__ == "__main__":
     sess_config = tf.ConfigProto()
     sess_config.gpu_options.allow_growth = True
     with tf.Session(config=sess_config) as sess:
-      imin = tf.placeholder(tf.float32, (1, 256, 256, 6))
+      imin = tf.placeholder(tf.float32, (1, 256, 512, 3))
       output = model.build_server_graph(FLAGS, imin)
       output = (output + 1.) * 127.5
       output = tf.reverse(output, [-1])
