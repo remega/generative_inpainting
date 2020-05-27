@@ -54,7 +54,7 @@ if __name__ == "__main__":
             sess_config.gpu_options.allow_growth = True
             with tf.Session(config=sess_config) as sess:
                 input_image = tf.constant(input_image, dtype=tf.float32)
-                output = model.build_server_graph(FLAGS, input_image)
+                output = model.build_server_graph(FLAGS, input_image, reuse=True)
                 output = (output + 1.) * 127.5
                 output = tf.reverse(output, [-1])
                 output = tf.saturate_cast(output, tf.uint8)
