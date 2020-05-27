@@ -19,7 +19,7 @@ from inpaint_model import InpaintCAModel
 # parser.add_argument('--checkpoint_dir', default='', type=str,
 #                     help='The directory of tensorflow checkpoint.')
 
-inputdir = './ValRemoval/SGITS'
+inputdir = '../ValRemoval/SGITS'
 outdir = './results/SGITS'
 checkpoint_dir = './checkpoints/snap-0'
 
