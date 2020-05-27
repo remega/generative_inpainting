@@ -49,27 +49,27 @@ if __name__ == "__main__":
         from_name = vname
         var_value = tf.contrib.framework.load_variable(checkpoint_dir, from_name)
         assign_ops.append(tf.assign(var, var_value))
-        for x in images:
-            curdir = os.path.join(inputdir, x)
-            if os.path.isdir(curdir):
-                image = cv2.imread(os.path.join(curdir, 'Ori.png'))
-                mask = cv2.imread(os.path.join(curdir, 'mask.png'))
-                assert image.shape == mask.shape
+      sess.run(assign_ops)
+      for x in images:
+        curdir = os.path.join(inputdir, x)
+        if os.path.isdir(curdir):
+            image = cv2.imread(os.path.join(curdir, 'Ori.png'))
+            mask = cv2.imread(os.path.join(curdir, 'mask.png'))
+            assert image.shape == mask.shape
 
-                h, w, _ = image.shape
-                grid = 8
-                image = image[:h//grid*grid, :w//grid*grid, :]
-                mask = mask[:h//grid*grid, :w//grid*grid, :]
-                print('Shape of image: {}'.format(image.shape))
+            h, w, _ = image.shape
+            grid = 8
+            image = image[:h//grid*grid, :w//grid*grid, :]
+            mask = mask[:h//grid*grid, :w//grid*grid, :]
+            print('Shape of image: {}'.format(image.shape))
 
-                image = np.expand_dims(image, 0)
-                mask = np.expand_dims(mask, 0)
-                input_image = np.concatenate([image, mask], axis=2)
-                input_image = input_image.astype(np.float32)
-                # input_image = tf.constant(input_image, dtype=tf.float32)
+            image = np.expand_dims(image, 0)
+            mask = np.expand_dims(mask, 0)
+            input_image = np.concatenate([image, mask], axis=2)
+            input_image = input_image.astype(np.float32)
+            # input_image = tf.constant(input_image, dtype=tf.float32)
 
-                sess.run(assign_ops)
-                print('Model loaded.')
-                result = sess.run(output, feed_dict={imin: input_image})
+            print('Model loaded.')
+            result = sess.run(output, feed_dict={imin: input_image})
 
-                cv2.imwrite(os.path.join(outdir, x + '.png'), result[0][:, :, ::-1])
+            cv2.imwrite(os.path.join(outdir, x + '.png'), result[0][:, :, ::-1])
