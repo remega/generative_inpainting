@@ -33,28 +33,28 @@ if __name__ == "__main__":
     model = InpaintCAModel()
     images = os.listdir(inputdir)
     images.sort()
-    sess_config = tf.ConfigProto()
-    sess_config.gpu_options.allow_growth = True
-    with tf.Session(config=sess_config) as sess:
-        for x in images:
-            curdir = os.path.join(inputdir, x)
-            if os.path.isdir(curdir):
-                image = cv2.imread(os.path.join(curdir, 'Ori.png'))
-                mask = cv2.imread(os.path.join(curdir, 'mask.png'))
-                assert image.shape == mask.shape
 
-                h, w, _ = image.shape
-                grid = 8
-                image = image[:h//grid*grid, :w//grid*grid, :]
-                mask = mask[:h//grid*grid, :w//grid*grid, :]
-                print('Shape of image: {}'.format(image.shape))
+    for x in images:
+        curdir = os.path.join(inputdir, x)
+        if os.path.isdir(curdir):
+            image = cv2.imread(os.path.join(curdir, 'Ori.png'))
+            mask = cv2.imread(os.path.join(curdir, 'mask.png'))
+            assert image.shape == mask.shape
 
-                image = np.expand_dims(image, 0)
-                mask = np.expand_dims(mask, 0)
-                input_image = np.concatenate([image, mask], axis=2)
+            h, w, _ = image.shape
+            grid = 8
+            image = image[:h//grid*grid, :w//grid*grid, :]
+            mask = mask[:h//grid*grid, :w//grid*grid, :]
+            print('Shape of image: {}'.format(image.shape))
 
+            image = np.expand_dims(image, 0)
+            mask = np.expand_dims(mask, 0)
+            input_image = np.concatenate([image, mask], axis=2)
+            sess_config = tf.ConfigProto()
+            sess_config.gpu_options.allow_growth = True
+            with tf.Session(config=sess_config) as sess:
                 input_image = tf.constant(input_image, dtype=tf.float32)
-                output = model.build_server_graph(FLAGS, input_image, reuse=True)
+                output = model.build_server_graph(FLAGS, input_image)
                 output = (output + 1.) * 127.5
                 output = tf.reverse(output, [-1])
                 output = tf.saturate_cast(output, tf.uint8)
