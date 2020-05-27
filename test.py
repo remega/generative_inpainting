@@ -40,7 +40,8 @@ if __name__ == "__main__":
     image = np.expand_dims(image, 0)
     mask = np.expand_dims(mask, 0)
     input_image = np.concatenate([image, mask], axis=2)
-    print('attention')
+    t_shape = input_image.shape
+    # print('attention')
     print(input_image.shape)
     sess_config = tf.ConfigProto()
     sess_config.gpu_options.allow_growth = True
@@ -60,5 +61,6 @@ if __name__ == "__main__":
             assign_ops.append(tf.assign(var, var_value))
         sess.run(assign_ops)
         print('Model loaded.')
+        print(t_shape)
         result = sess.run(output)
         cv2.imwrite(args.output, result[0][:, :, ::-1])
