@@ -18,11 +18,10 @@ from inpaint_model import InpaintCAModel
 #                     help='Where to write output.')
 # parser.add_argument('--checkpoint_dir', default='', type=str,
 #                     help='The directory of tensorflow checkpoint.')
-
-
-inputdir = '../ValRemoval/SGITS'
-outdir = './results/SGITS'
-checkpoint_dir = './checkpoints/snap-0'
+imdir = '/home/remega/projects/SalITI/out/PLA2_real/'
+maskdir = '/home/remega/projects/GAN_P2/'
+outdir = './results/PLA2_real'
+checkpoint_dir = './snap-0'
 
 if not os.path.exists(outdir):
     os.makedirs(outdir)
@@ -32,7 +31,7 @@ if __name__ == "__main__":
     # ng.get_gpus(1)
     # args, unknown = parser.parse_known_args()
     model = InpaintCAModel()
-    images = os.listdir(inputdir)
+    images = os.listdir(maskdir)
     images.sort()
     sess_config = tf.ConfigProto()
     sess_config.gpu_options.allow_growth = True
@@ -52,9 +51,9 @@ if __name__ == "__main__":
         assign_ops.append(tf.assign(var, var_value))
       sess.run(assign_ops)
       for x in images:
-        curdir = os.path.join(inputdir, x)
+        curdir = os.path.join(maskdir, x)
         if os.path.isdir(curdir):
-            image = cv2.imread(os.path.join(curdir, 'Ori.png'))
+            image = cv2.imread(os.path.join(imdir, x + '.jpg'))
             mask = cv2.imread(os.path.join(curdir, 'mask.png'))
             assert image.shape == mask.shape
 
@@ -70,7 +69,7 @@ if __name__ == "__main__":
             input_image = input_image.astype(np.float32)
             # input_image = tf.constant(input_image, dtype=tf.float32)
 
-            print('Model loaded.')
+            # print('Model loaded.')
             result = sess.run(output, feed_dict={imin: input_image})
 
             cv2.imwrite(os.path.join(outdir, x + '.png'), result[0][:, :, ::-1])
