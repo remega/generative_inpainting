@@ -54,6 +54,7 @@ if __name__ == "__main__":
         curdir = os.path.join(maskdir, x)
         if os.path.isdir(curdir):
             image = cv2.imread(os.path.join(imdir, x + '.jpg'))
+            image = cv2.resize(image, (256,256))
             mask = cv2.imread(os.path.join(curdir, 'mask.png'))
             assert image.shape == mask.shape
 
