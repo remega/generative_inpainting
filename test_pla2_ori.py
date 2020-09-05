@@ -20,7 +20,7 @@ from inpaint_model import InpaintCAModel
 #                     help='The directory of tensorflow checkpoint.')
 imdir = '/home/remega/projects/SalITI/out/PLA2_real/'
 maskdir = '/home/remega/projects/GAN_P2/'
-outdir = './results/PLA2_real'
+outdir = './results/PLA2_ori'
 checkpoint_dir = './snap-0'
 
 if not os.path.exists(outdir):
