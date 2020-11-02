@@ -18,7 +18,7 @@ from inpaint_model import InpaintCAModel
 #                     help='Where to write output.')
 # parser.add_argument('--checkpoint_dir', default='', type=str,
 #                     help='The directory of tensorflow checkpoint.')
-imdir = '/home/remega/projects/SalITI/out/PLA2_real/'
+imdir = '/home/remega/projects/GAN_P2/'
 maskdir = '/home/remega/projects/GAN_P2/'
 outdir = './results/PLA2_ori'
 checkpoint_dir = './snap-0'
